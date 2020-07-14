@@ -151,3 +151,4 @@ class Time{
         this._minute = minute;
     }
 }
+export default Time;
