@@ -223,16 +223,3 @@ class Task{
         return taskString;
     }
 }
-let desc = "Wash car."
-let start = new Time(9,0);
-let dur = new Time(1,30);
-let task = new Task(desc, start, dur);
-console.log("Initial task:\n" + task.toString());
-let newDur = new Time(0,0);
-let act = task.setDuration(newDur);
-if(typeof(act) != 'undefined') {
-    console.log(act);
-} else {
-    console.log("Changed:\n" + task.toString());
-}
-//task.decreaseDuration(newDur);
