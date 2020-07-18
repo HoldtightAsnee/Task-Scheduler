@@ -20,7 +20,11 @@ class Time{
             if((this._minute + minute) <= 59) {
                 this._minute += minute;
             } else {
-                this.addHelper(this._minute + minute);
+                let hour2 = Math.floor((this._minute + minute) / 60);
+                let minute2 = (this._minute + minute) % 60;
+                let time2 = new Time(hour2, minute2);
+                this._minute = 0;
+                this.addHelper(time2);
             }
     }
 
@@ -38,9 +42,10 @@ class Time{
                 throw new Error("Invalid hour");
             }
             if((this._minute - minute) >= 0) {
-                this.minute -= minute;
+                this._minute -= minute;
             } else {
-                this.minute = 60 + (this._minute - minute);
+                this._hour -= Math.floor((60 - (this._minute - minute)) / 60);
+                this._minute = 60 + (this._minute - minute);
             }
     }
 
@@ -151,4 +156,4 @@ class Time{
         this._minute = minute;
     }
 }
-export default Time;
+module.exports = Time;
