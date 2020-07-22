@@ -223,3 +223,4 @@ class Task{
         return taskString;
     }
 }
+module.exports = Task;

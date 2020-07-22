@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create a Schedule</title>
+        <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+        <script src="../JavaScript/main.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1 class="title">Task Scheduler</h1>
+        </header>
+        <p id="1">Hello</p>
+            <label for="startDay">Start Day:</label>
+            <select name="startDay" id=startDay>
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+            </select>
+            <label for="endDay">End Day:</label>
+            <select name="endDay" id="endDay">
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+            </select>
+            <p>Single Day Schedule:</p>
+            <input type="radio" name="singleDay" id="singleDayYes" value="Yes">
+            <label for="singleDayYes">Yes</label>
+            <input type="radio" name="singleDay" id="singleDayNo" value="No">
+            <label for="singleDayNo">No</label>
+            <label for="startTime">Start Time:</label>
+            <input name="startTime" id="startTime" type="time">
+            <label for="endTime">End Time:</label>
+            <input name="endTime" id="endTime" type="time">
+            <input type="button" value="submit" id="submitButton">
+        </form>
+    </body>
+</html>

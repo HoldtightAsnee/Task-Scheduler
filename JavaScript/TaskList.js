@@ -186,5 +186,9 @@ class Tasklist {
         this._taskArr.forEach(element => taskString += element.toString() + "\n");
         return taskString;
     }
+
+    length() {
+        return this._taskArr.length;
+    }
 }
 module.exports = Tasklist;
