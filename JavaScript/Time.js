@@ -65,6 +65,12 @@ class Time{
         return parseInt(minuteString);
     }
 
+    static stringToTime(time) {
+        let hour = Time.stringToHour(time);
+        let minute = Time.stringToMinute(time);
+        return new Time(hour, minute);
+    }
+
     /* Converts an instance into minutes and returns
        the minutes
     */
@@ -156,4 +162,4 @@ class Time{
         this._minute = minute;
     }
 }
-module.exports = Time;
+//module.exports = Time;
