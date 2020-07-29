@@ -1,6 +1,10 @@
-const TaskList = require("./TaskList.js");
-const Time = require("./Time.js");
-const Task = require("./Task.js");
+//const TaskList = require("./TaskList.js");
+//const Time = require("./Time.js");
+//const Task = require("./Task.js");
+/*import TaskList from "./TaskList";
+import Task from "./Task";
+import Time from "./Time";
+*/
 class Day {
     constructor(day, startTime, endTime, duration) {
         this._day = day;
@@ -34,20 +38,40 @@ class Day {
         this._startTime = startTime;
         this._endTime = endTime;
         this._duration = duration;
-        let timeInBetween = Time.subtract(startTime, endTime);
         let tempStartTime = startTime;
-        let count = Math.floor(timeInBetween.convertToMinutes() / duration.convertToMinutes());
-        while(count > 0) {
+        let count = 0;
+        while(true) {
             let task = new Task("Please enter a description.", tempStartTime, duration);
-            if(count === 1) {
-                let tempDuration = Time.subtract(endTime, tempStartTime);
-                task.setDuration(tempDuration);
+            if(this.taskList.length() > 0) {
+                let prev = this.taskList.get(this.taskList.length() - 1);
+                if(prev.endTime.compareTo(endTime) < 0) {
+                    let difference = Time.subtract(prev.endTime, endTime);
+                    if(difference.compareTo(duration) > 0) {
+                        this.taskList.addToBack(task, false);
+                    } else if(difference.compareTo(duration) === 0) {
+                        this.taskList.addToBack(task, false);
+                        break;
+                    } else {
+                        task.setDuration(difference);
+                        this.taskList.addToBack(task, false);
+                        break;
+                    }
+                } else if(prev.endTime.compareTo(endTime) === 0) {
+                    break;
+                }else {
+                    let difference = Time.subtract(prev.startTime, endTime);
+                    prev.setDuration(difference);
+                    break;
+                }
+            } else {
+                this.taskList.addToBack(task, false);
             }
-            this.taskList.addToBack(task, false);
             tempStartTime = Time.add(tempStartTime, duration);
-            count--;
+            count++;
+            if(count > 10000) {
+                break;
+            }
         }
-        
     }
 
     get id() {
@@ -67,4 +91,4 @@ class Day {
         return string;
     }
 }
-module.exports = Day;
+//module.exports = Day;
