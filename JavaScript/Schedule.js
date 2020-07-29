@@ -1,7 +1,9 @@
-const Day = require("./Day.js");
+/*const Day = require("./Day.js");
 const Task = require("./Task.js");
 const TaskList = require("./TaskList.js");
 const Time = require("./Time.js");
+*/
+//import Day from "./Day";
 class Schedule {
     constructor() {
         this._weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -184,21 +186,63 @@ class Schedule {
             return err;
         }
     }
+    
+    /* Fills in the _days array with the first day being 'start
+       and the last day being 'end'. If 'start and 'end' are the same
+       then only 'start' is added to the array.
+    */
+    generateSchedule(start, end, startTime, endTime, duration) {
+        this._days = [];
+        if(start != end) {
+            this.addToFront(startTime, endTime, duration, start);
+            let startDayId = this._days[0].id;
+            let endDay = new Day(end, startTime, endTime, duration);
+            let index = 0;
+            if(startDayId < endDay.id) {
+                while(startDayId < endDay.id) {
+                    this.addDayAfter(index, startTime, endTime, duration);
+                    startDayId++;
+                    index++;
+                }
+            } else if (endDay.id < startDayId) {
+                while(startDayId != endDay.id) {
+                    this.addDayAfter(index, startTime, endTime, duration);
+                    startDayId++;
+                    index++;
+                    if(startDayId === 6) {
+                        startDayId = -1;
+                    }
+                }
+            }
+            //this._days.push(endDay);
+        } else {
+            this.addToFront(startTime, endTime, duration, start);
+        }
+
+    }
 
     /*
         Returns the day at the index.
     */
     get(index) {
-        return _days[index];
+        return this._days[index];
     }
 
     toString() {
         let string = '';
         this._days.forEach(element => {
-           // string+= `${element.day}: \n${element.taskList.get(0).toString()}\n${element.taskList.get(element.taskList.length() -1).toString()}\n`;
+           //string+= `${element.day}: \n${element.taskList.get(0).toString()}\n${element.taskList.get(element.taskList.length() -1).toString()}\n`;
            string+= `${element.day}\n`;
         })
         return string;
     }
+
+    get days() {
+        return this._days;
+    }
+
+    clear() {
+        this._days = [];
+    }
 }
-module.exports = Schedule;
+//module.exports = Schedule;
