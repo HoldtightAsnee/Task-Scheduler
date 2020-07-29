@@ -1,6 +1,8 @@
-const Task = require("./Task.js");
-const Time = require("./Time.js");
-class Tasklist {
+//const Task = require("./Task.js");
+//const Time = require("./Time.js");
+//import Task from "./Task";
+//import Time from "./Time.js";
+class TaskList {
     constructor() {
         this._taskArr =  [];
     }
@@ -190,5 +192,9 @@ class Tasklist {
     length() {
         return this._taskArr.length;
     }
+
+    get taskArr() {
+        return this._taskArr;
+    }
 }
-module.exports = Tasklist;
+//module.exports = Tasklist;
