@@ -1,4 +1,5 @@
-const Time = require("./Time.js");
+//const Time = require("./Time.js");
+//import Time from "./Time.js";
 class Task{
     constructor(description, startTime, duration) {
         this._description = description;
@@ -223,4 +224,4 @@ class Task{
         return taskString;
     }
 }
-module.exports = Task;
+//module.exports = Task;
