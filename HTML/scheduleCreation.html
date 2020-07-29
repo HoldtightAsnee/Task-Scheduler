@@ -3,13 +3,17 @@
     <head>
         <title>Create a Schedule</title>
         <link rel="stylesheet" type="text/css" href="../CSS/header.css">
-        <script src="../JavaScript/main.js" defer></script>
+        <script src="../JavaScript/Time.js" defer></script>
+        <script src="../JavaScript/Task.js" defer></script>        
+        <script src="../JavaScript/TaskList.js" defer></script>
+        <script src="../JavaScript/Day.js" defer></script>
+        <script src="../JavaScript/Schedule.js" defer></script>
+        <script src="../JavaScript/mainCleanUp.js" defer></script>
     </head>
     <body>
         <header>
             <h1 class="title">Task Scheduler</h1>
         </header>
-        <p id="1">Hello</p>
             <label for="startDay">Start Day:</label>
             <select name="startDay" id=startDay>
                 <option>Monday</option>
@@ -30,16 +34,19 @@
                 <option>Saturday</option>
                 <option>Sunday</option>
             </select>
-            <p>Single Day Schedule:</p>
-            <input type="radio" name="singleDay" id="singleDayYes" value="Yes">
-            <label for="singleDayYes">Yes</label>
-            <input type="radio" name="singleDay" id="singleDayNo" value="No">
-            <label for="singleDayNo">No</label>
             <label for="startTime">Start Time:</label>
-            <input name="startTime" id="startTime" type="time">
+            <input name="startTime" id="startTime" type="time" value="08:00">
             <label for="endTime">End Time:</label>
-            <input name="endTime" id="endTime" type="time">
+            <input name="endTime" id="endTime" type="time" value="10:00">
+            <span>Duration: </span>
+            <input type="number" min="0" max="24" id="durationHour" value="1">
+            <span>hr</span>
+            <span>:</span>
+            <input type="number" min="0" max="59" id="durationMinute" value="0">
+            <span>min</span>
             <input type="button" value="submit" id="submitButton">
-        </form>
+        <div id="schedule-table">
+
+        </div>
     </body>
 </html>
