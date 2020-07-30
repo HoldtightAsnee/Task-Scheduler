@@ -186,6 +186,25 @@ class Schedule {
             return err;
         }
     }
+
+    /*
+        Removes the day at the specified index
+    */
+    remove(index) {
+        try {
+            if(index === 0) {
+                this.removeFront();
+            } else if(index === this._days.length - 1) {
+                this.removeBack();
+            } else if(index > 0 && index < this._days.length) {
+                this._days.splice(index, 1);
+            } else {
+                throw new Error("No day to remove");
+            }
+        } catch(err) {
+            return err;
+        }
+    }
     
     /* Fills in the _days array with the first day being 'start
        and the last day being 'end'. If 'start and 'end' are the same
