@@ -48,7 +48,15 @@ function loadDay(rowCount, day) {
     let addDayBeforeBtn = document.createElement('button');
     addDayBeforeBtn.innerHTML = "Add Day Before";
     addDayBeforeBtn.dataset.role = "addDayBefore";
+    let addDayAfterBtn = document.createElement("button");
+    addDayAfterBtn.innerHTML = "Add Day After";
+    addDayAfterBtn.dataset.role = "addDayAfter";
+    let removeDayBtn = document.createElement("button");
+    removeDayBtn.innerHTML = "Remove";
+    removeDayBtn.dataset.role = "removeDay";
     weekday.appendChild(addDayBeforeBtn);
+    weekday.appendChild(addDayAfterBtn);
+    weekday.appendChild(removeDayBtn);
     row.appendChild(weekday);
     return row;
 }
@@ -121,11 +129,15 @@ function tableButtonDelegator(event) {
     }
     if(target.dataset.role === "addDayBefore") {
         addDayBefore(target);
+    } else if(target.dataset.role === "addDayAfter") {
+        addDayAfter(target);
+    } else if(target.dataset.role === "removeDay") {
+        removeDay(target);
     }
 }
 
 /*
-    This function adds the day the current day to the 
+    This function adds the day before the current day to the 
     schedule, if it is not already presnet. It also adds
     a new row with the day and tasks to the table, and 
     adjusts the id of the rows after.
@@ -138,12 +150,63 @@ function addDayBefore(button) {
     if(action === undefined) {
         let newRow = loadDay(index, schedule.get(index));
         loadTasks(newRow, schedule.get(index));
-        let tableBodyNodes = tableBody.childNodes
+        let tableBodyNodes = tableBody.childNodes;
         for(let i = index; i < tableBodyNodes.length; i++) {
             rowCount++;
-            tableBody.childNodes[i].id = "row" + rowCount;
+            tableBodyNodes[i].id = "row" + rowCount;
         }
         tableBody.insertBefore(newRow, tableBodyNodes[index]);
+    } else {
+        alert(action);
+    }
+}
+
+/*
+    This function adds the day after the current day to the 
+    schedule, if it is not already present. It also adds
+    a new row with the day and tasks to the table, and 
+    adjusts the id of the rows after.
+*/
+function addDayAfter(button) {
+    let row = button.parentNode.parentNode;
+    let index = parseInt(row.id[row.id.length - 1]);
+    let rowCount = index + 1;
+    let action = schedule.addDayAfter(index, dayStartTime, dayEndTime, dayDuration);
+    if(action === undefined) {
+        let newRow = loadDay(rowCount, schedule.get(index + 1));
+        loadTasks(newRow, schedule.get(index + 1));
+        let tableBodyNodes = tableBody.childNodes;
+        if(index === tableBodyNodes.length - 1) {
+            tableBody.appendChild(newRow);
+        } else {
+            for(let i = index + 1; i < tableBodyNodes.length; i++) {
+                tableBodyNodes[i].id = "row" + rowCount;
+                rowCount++;
+            }
+            tableBody.insertBefore(newRow, tableBodyNodes[index + 1]);
+        }
+    } else {
+        alert(action);
+    }
+}
+
+/*
+    This function removes the day from the schedule
+    and adjusts the id of the following rows in the 
+    table.
+*/
+function removeDay(button) {
+    let row = button.parentNode.parentNode;
+    let index = parseInt(row.id[row.id.length - 1]);
+    let rowCount = index;
+    let action = schedule.remove(index);
+    if(action === undefined) {
+        let tableBodyNodes = tableBody.childNodes;
+        tableBody.removeChild(row);
+        for(let i = index; i < tableBodyNodes.length; i++) {
+            tableBodyNodes[i].id = "row" + rowCount;
+            rowCount++;
+        }
     } else {
         alert(action);
     }
