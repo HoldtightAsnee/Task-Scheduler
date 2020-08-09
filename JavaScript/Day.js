@@ -1,10 +1,3 @@
-//const TaskList = require("./TaskList.js");
-//const Time = require("./Time.js");
-//const Task = require("./Task.js");
-/*import TaskList from "./TaskList";
-import Task from "./Task";
-import Time from "./Time";
-*/
 class Day {
     constructor(day, startTime, endTime, duration) {
         this._day = day;
@@ -53,7 +46,7 @@ class Day {
                         break;
                     } else {
                         task.setDuration(difference);
-                        this.taskList.addToBack(task, false);
+                        this.taskList.addToBack(task);
                         break;
                     }
                 } else if(prev.endTime.compareTo(endTime) === 0) {
@@ -91,4 +84,3 @@ class Day {
         return string;
     }
 }
-//module.exports = Day;

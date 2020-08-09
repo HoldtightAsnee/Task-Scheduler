@@ -3,6 +3,7 @@ let schedule = new Schedule();
 let scheduleTable = document.createElement("table");
 scheduleTable.id = "schedTable";
 scheduleTable.addEventListener("click", tableButtonDelegator);
+scheduleTable.addEventListener("input", taskInputDelegator);
 
 let tableBody = document.createElement("tbody");
 
@@ -12,6 +13,9 @@ submitButton.addEventListener("click", displayTable);
 let dayStartTime;
 let dayEndTime;
 let dayDuration;
+
+let selectEdit;
+let tempTask;
 
 /*
     Creates the schedule in the schedule object
@@ -54,6 +58,7 @@ function loadDay(rowCount, day) {
     let removeDayBtn = document.createElement("button");
     removeDayBtn.innerHTML = "Remove";
     removeDayBtn.dataset.role = "removeDay";
+    removeDayBtn.id = rowCount + "removeDay";
     weekday.appendChild(addDayBeforeBtn);
     weekday.appendChild(addDayAfterBtn);
     weekday.appendChild(removeDayBtn);
@@ -70,14 +75,54 @@ function loadTasks(row, day) {
     let colCount = 0;
     day.taskList.taskArr.forEach(task => {
         let data = document.createElement('td');
-        data.id = rowCount + "col" + colCount;
+        data.id = rowCount + "task" + colCount;
+        let descId = rowCount + "desc" + colCount;
         let desc = task.description;
         let startTime = "Start Time: " + task.startTime + "<br>";
         let endTime = "End Time: " + task.endTime + "<br>";
         let duration = "Duration: " + task.duration + "<br>";
         let descLabel = '<label for="task"> Description: </Label>'
-        let descInput = '<input name="task" ' + ' value="' + desc + '">';
-        data.innerHTML = descLabel + descInput +"<p>" + startTime + endTime + duration + "</p>";
+        let descInput = '<input name="task" id="' + descId + '"placeholder="' + desc + '">';
+        let timesId = rowCount + "taskTimes" + colCount;
+        data.innerHTML = descLabel + descInput +"<p id='" + timesId + "'>" + startTime + endTime + duration + "</p>";
+        //Add before button
+        let addTaskBeforeBtn = document.createElement("button");
+        addTaskBeforeBtn.innerHTML = "Add";
+        addTaskBeforeBtn.dataset.role ="addTaskBefore";
+        //Add after button
+        let addTaskAfterBtn = document.createElement("button");
+        addTaskAfterBtn.innerHTML = "Add";
+        addTaskAfterBtn.dataset.role = "addTaskAfter";
+        //Edit Button
+        let editTaskBtn = document.createElement("button");
+        editTaskBtn.innerHTML = "Edit";
+        editTaskBtn.dataset.role = "editTask";
+        //Remove button
+        let removeTaskBtn = document.createElement("button");
+        removeTaskBtn.innerHTML = "Remove";
+        removeTaskBtn.dataset.role = "removeTask";
+        //Save button
+        let saveEditBtn = document.createElement("button");
+        saveEditBtn.innerHTML = "Save";
+        saveEditBtn.dataset.role = "saveEdit";
+        saveEditBtn.hidden = true;
+        //Cancel button
+        let cancelEditBtn = document.createElement("button");
+        cancelEditBtn.innerHTML = "Cancel";
+        cancelEditBtn.dataset.role = "cancelEdit";
+        cancelEditBtn.hidden = true; 
+        cancelEditBtn.id = rowCount + "cancel" + colCount;
+        //adding buttons to data
+        if(colCount === 0) {
+            data.appendChild(addTaskBeforeBtn);
+        }
+        data.appendChild(editTaskBtn);
+        data.appendChild(removeTaskBtn);
+        if(colCount === day.taskList.length() - 1) {
+            data.appendChild(addTaskAfterBtn);
+        }
+        data.appendChild(saveEditBtn);
+        data.appendChild(cancelEditBtn);
         row.appendChild(data);
         colCount++;
     });
@@ -118,96 +163,14 @@ function displayTable() {
     }
 }
 
-/*
-    The function delegates all buttons events in the table.
-    It is meant to be a part of the table's event listeners.
-*/
-function tableButtonDelegator(event) {
-    let target = event.target;
-    if(target.tagName != "BUTTON") {
-        return;
-    }
-    if(target.dataset.role === "addDayBefore") {
-        addDayBefore(target);
-    } else if(target.dataset.role === "addDayAfter") {
-        addDayAfter(target);
-    } else if(target.dataset.role === "removeDay") {
-        removeDay(target);
-    }
-}
-
-/*
-    This function adds the day before the current day to the 
-    schedule, if it is not already presnet. It also adds
-    a new row with the day and tasks to the table, and 
-    adjusts the id of the rows after.
-*/
-function addDayBefore(button) {
-    let row = button.parentNode.parentNode;
-    let index = parseInt(row.id[row.id.length - 1]);
-    let rowCount = index;
-    let action = schedule.addDayBefore(index, dayStartTime, dayEndTime, dayDuration);
-    if(action === undefined) {
-        let newRow = loadDay(index, schedule.get(index));
-        loadTasks(newRow, schedule.get(index));
-        let tableBodyNodes = tableBody.childNodes;
-        for(let i = index; i < tableBodyNodes.length; i++) {
-            rowCount++;
-            tableBodyNodes[i].id = "row" + rowCount;
-        }
-        tableBody.insertBefore(newRow, tableBodyNodes[index]);
-    } else {
-        alert(action);
-    }
-}
-
-/*
-    This function adds the day after the current day to the 
-    schedule, if it is not already present. It also adds
-    a new row with the day and tasks to the table, and 
-    adjusts the id of the rows after.
-*/
-function addDayAfter(button) {
-    let row = button.parentNode.parentNode;
-    let index = parseInt(row.id[row.id.length - 1]);
-    let rowCount = index + 1;
-    let action = schedule.addDayAfter(index, dayStartTime, dayEndTime, dayDuration);
-    if(action === undefined) {
-        let newRow = loadDay(rowCount, schedule.get(index + 1));
-        loadTasks(newRow, schedule.get(index + 1));
-        let tableBodyNodes = tableBody.childNodes;
-        if(index === tableBodyNodes.length - 1) {
-            tableBody.appendChild(newRow);
-        } else {
-            for(let i = index + 1; i < tableBodyNodes.length; i++) {
-                tableBodyNodes[i].id = "row" + rowCount;
-                rowCount++;
+function updateTaskId(rowCount, rowNodes) {
+            let colCount = 0;
+            while(colCount < rowNodes.length - 1) {
+                let cell = rowNodes[colCount + 1];
+                cell.id = rowCount + "task" + colCount;
+                cell.childNodes[2].id = rowCount + "taskTimes" + colCount;
+                colCount++;
             }
-            tableBody.insertBefore(newRow, tableBodyNodes[index + 1]);
-        }
-    } else {
-        alert(action);
-    }
 }
 
-/*
-    This function removes the day from the schedule
-    and adjusts the id of the following rows in the 
-    table.
-*/
-function removeDay(button) {
-    let row = button.parentNode.parentNode;
-    let index = parseInt(row.id[row.id.length - 1]);
-    let rowCount = index;
-    let action = schedule.remove(index);
-    if(action === undefined) {
-        let tableBodyNodes = tableBody.childNodes;
-        tableBody.removeChild(row);
-        for(let i = index; i < tableBodyNodes.length; i++) {
-            tableBodyNodes[i].id = "row" + rowCount;
-            rowCount++;
-        }
-    } else {
-        alert(action);
-    }
-}
+

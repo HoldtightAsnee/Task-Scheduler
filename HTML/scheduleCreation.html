@@ -8,6 +8,8 @@
         <script src="../JavaScript/TaskList.js" defer></script>
         <script src="../JavaScript/Day.js" defer></script>
         <script src="../JavaScript/Schedule.js" defer></script>
+        <script src="../JavaScript/buttonHandler.js" defer></script>
+        <script src="../JavaScript/inputHandler.js" defer></script>
         <script src="../JavaScript/main.js" defer></script>
     </head>
     <body>
@@ -39,10 +41,10 @@
             <label for="endTime">End Time:</label>
             <input name="endTime" id="endTime" type="time" value="10:00">
             <span>Duration: </span>
-            <input type="number" min="0" max="24" id="durationHour" value="1">
+            <input type="number" min="0" max="24" id="durationHour" value="0">
             <span>hr</span>
             <span>:</span>
-            <input type="number" min="0" max="59" id="durationMinute" value="0">
+            <input type="number" min="0" max="59" id="durationMinute" value="30">
             <span>min</span>
             <input type="button" value="submit" id="submitButton">
         <div id="schedule-table">

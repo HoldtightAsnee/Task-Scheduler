@@ -166,7 +166,7 @@ class Task{
     setEndTime(time) {
         try {
             if(time.compareTo(this.startTime) > 0) {
-                if(time.compareTo(new Time(24,0)) < 0) {
+                if(time.compareTo(new Time(24,0)) <= 0) {
                     this._endTime = time;
                     this._duration = Time.subtract(this.startTime, this.endTime);
                 } else {
@@ -198,6 +198,10 @@ class Task{
         } catch(err) {
             return err;
         }
+    }
+
+    set description(description) {
+        this._description = description;
     }
 
     get description() {
