@@ -129,7 +129,7 @@ function editTask(button) {
     let cellNodes = cell.childNodes;
     let displayPara = cellNodes[1];
     let dayIndex = parseInt(cell.id[0]);
-    let taskIndex = parseInt(cell.id.slice(5));
+    let taskIndex = parseInt(cell.id[cell.id.length - 1]);
     let task = schedule.get(dayIndex).taskList.get(taskIndex);
     tempTask = tempTask = new Task(task.description, task.startTime, task.duration);
     let colon = document.createElement("span");
@@ -242,7 +242,7 @@ function cancelEdit(button) {
     selectEdit = null;
     let cell = button.parentNode;
     let dayIndex = parseInt(cell.id[0]);
-    let taskIndex = parseInt(cell.id.slice(5));
+    let taskIndex = parseInt(cell.id[cell.id.length - 1]);
     let cellNodes = cell.childNodes;
     let displayPara = cellNodes[2];
     let editPara = cellNodes[1];
@@ -279,14 +279,13 @@ function saveEdit(button) {
     let cell = button.parentNode;
     let row = button.parentNode.parentNode;
     let dayIndex = parseInt(cell.id[0]);
-    let taskIndex = parseInt(cell.id.slice(5));
+    let taskIndex = parseInt(cell.id[cell.id.length - 1]);
     let day = schedule.get(dayIndex);
     let task = day.taskList.get(taskIndex);
     if(task.startTime.compareTo(tempTask.startTime) <= 0) {
         task.setStartTime(tempTask.startTime);
         task.setEndTime(tempTask.endTime);
         day.taskList.adjustAllStartTimes(taskIndex + 1);
-        day.taskList.adjustAllEndTimes(taskIndex - 1);
     } else {
         task.setStartTime(tempTask.startTime);
         task.setEndTime(tempTask.endTime);
@@ -311,10 +310,6 @@ function addTaskBefore(button) {
     let taskIndex = parseInt(cell.id[cell.id.length - 1]);
     let day = schedule.get(dayIndex);
     let curr = day.taskList.get(taskIndex);
-    if(curr.startTime.compareTo(new Time(0,0)) === 0) {
-        alert("Cannot add task that starts before midnight.");
-        return;
-    }
     let startTime = Time.subtract(curr.startTime, curr.duration);
     let task = new Task("Please enter a description.", startTime, dayDuration);
     day.taskList.addAtIndex(task, taskIndex);
@@ -328,13 +323,11 @@ function addTaskAfter(button) {
     let cell = button.parentNode;
     let row = button.parentNode.parentNode;
     let dayIndex = parseInt(cell.id[0]);
-    let taskIndex = parseInt(cell.id.slice(5));
-    console.log(cell.id);
-    console.log(taskIndex);
+    let taskIndex = parseInt(cell.id[cell.id.length - 1]);
     let day = schedule.get(dayIndex);
     let curr = day.taskList.get(taskIndex);
     let task = new Task("Please enter a description.", curr.endTime, dayDuration);
-    day.taskList.addToBack(task);
+    day.taskList.addToBack(task, taskIndex);
     while(row.childNodes.length > 1) {
         row.removeChild(row.lastChild);
     }

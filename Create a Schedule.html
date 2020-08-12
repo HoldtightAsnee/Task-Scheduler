@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://127.0.0.1:5500/HTML/scheduleCreation.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Create a Schedule</title>
+        <link rel="stylesheet" type="text/css" href="./Create a Schedule_files/header.css">
+        <link rel="stylesheet" type="text/css" href="./Create a Schedule_files/schedule.css">
+        <script src="./Create a Schedule_files/Time.js.download" defer=""></script>
+        <script src="./Create a Schedule_files/Task.js.download" defer=""></script>        
+        <script src="./Create a Schedule_files/TaskList.js.download" defer=""></script>
+        <script src="./Create a Schedule_files/Day.js.download" defer=""></script>
+        <script src="./Create a Schedule_files/Schedule.js.download" defer=""></script>
+        <script src="./Create a Schedule_files/buttonHandler.js.download" defer=""></script>
+        <script src="./Create a Schedule_files/inputHandler.js.download" defer=""></script>
+        <script src="./Create a Schedule_files/main.js.download" defer=""></script>
+    </head>
+    <body>
+        <header>
+            <h1 class="title">Task Scheduler</h1>
+        </header>
+        <div class="schedule">
+            <div class="schedule-days">
+                <label for="startDay">Start Day:</label>
+                <select name="startDay" id="startDay">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+                <label for="endDay">End Day:</label>
+                <select name="endDay" id="endDay">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+            </div>
+                <div class="schedule-times">
+                    <label for="startTime">Start Time:</label>
+                    <input name="startTime" id="startTime" type="time" value="08:00" class="time">
+                    <label for="endTime">End Time:</label>
+                    <input name="endTime" id="endTime" type="time" value="10:00" class="time">
+                    <span>Duration: </span>
+                    <input type="number" min="0" max="24" id="durationHour" value="0" class="duration">
+                    <span>hr : </span>
+                    <input type="number" min="0" max="59" id="durationMinute" value="30" class="duration">
+                    <span>min</span>
+                </div>
+            <input type="button" value="Submit" id="submitButton">
+            
+        </div>
+        <div id="schedule-table">
+        <table id="schedTable" style="border: 1px solid black; width: 100%;"><thead><tr><th>Schedule</th></tr></thead><tbody><tr id="row0" class="day-tr"><td class="day-td"><button data-role="addDayBefore">Add Day Before</button><p>Monday</p><button data-role="addDayAfter">Add Day After</button><button data-role="removeDay" id="0removeDay">Remove</button></td><td class="task-td" id="0task0"><input name="task" id="0desc0" placeholder="Please enter a description."><p id="0taskTimes0">Start Time: 08:00<br>End Time: 08:30<br>Duration: 00:30<br></p><button data-role="addTaskBefore">Add</button><button data-role="editTask">Edit</button><button data-role="removeTask">Remove</button><button data-role="saveEdit" hidden="">Save</button><button data-role="cancelEdit" hidden="" id="0cancel0">Cancel</button></td><td class="task-td" id="0task1"><input name="task" id="0desc1" placeholder="Please enter a description."><p id="0taskTimes1">Start Time: 08:30<br>End Time: 09:00<br>Duration: 00:30<br></p><button data-role="editTask">Edit</button><button data-role="removeTask">Remove</button><button data-role="saveEdit" hidden="">Save</button><button data-role="cancelEdit" hidden="" id="0cancel1">Cancel</button></td><td class="task-td" id="0task2"><input name="task" id="0desc2" placeholder="Please enter a description."><p id="0taskTimes2">Start Time: 09:00<br>End Time: 09:30<br>Duration: 00:30<br></p><button data-role="editTask">Edit</button><button data-role="removeTask">Remove</button><button data-role="saveEdit" hidden="">Save</button><button data-role="cancelEdit" hidden="" id="0cancel2">Cancel</button></td><td class="task-td" id="0task3"><input name="task" id="0desc3" placeholder="Please enter a description."><p id="0taskTimes3">Start Time: 09:30<br>End Time: 10:00<br>Duration: 00:30<br></p><button data-role="editTask">Edit</button><button data-role="removeTask">Remove</button><button data-role="addTaskAfter">Add</button><button data-role="saveEdit" hidden="">Save</button><button data-role="cancelEdit" hidden="" id="0cancel3">Cancel</button></td></tr></tbody></table></div>
+    <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body></html>

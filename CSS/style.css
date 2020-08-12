@@ -25,6 +25,44 @@ body {
     text-decoration-line: none;
 }
 
+.grid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    margin: 0 auto;
+    width: 65%;
+    background-color:rgba(224, 224, 224, 0.8);
+    
+}
+
+.grid h2 {
+    font-size: 18px;
+    text-decoration-line: underline;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+.grid h4{
+    font-size: 15px;
+    margin: 2.5%;
+}
+
+.grid h2, .grid h4 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    color: #002855;
+}
+ 
+.intro {
+    padding-bottom: 5%;
+}
+
+.intro, .getting-started {
+    opacity: 1;
+    
+}
+
 .purpose {
     text-align: center;
     position: absolute;
@@ -48,10 +86,15 @@ body {
 .button-link {
     background-color: #002855;
     color: #edf2f4;
-    border-radius: 8%;
+    font-size: 25px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 0.25rem; 
+    height:2rem;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 2px;
+    padding: 5px;
     text-decoration-line: none;
-    font-size: 50px;
-    padding: 12px;
 }
 .container {
     height: 550px;

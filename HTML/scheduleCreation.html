@@ -3,6 +3,7 @@
     <head>
         <title>Create a Schedule</title>
         <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+        <link rel="stylesheet" type="text/css" href="../CSS/schedule.css">
         <script src="../JavaScript/Time.js" defer></script>
         <script src="../JavaScript/Task.js" defer></script>        
         <script src="../JavaScript/TaskList.js" defer></script>
@@ -14,41 +15,46 @@
     </head>
     <body>
         <header>
-            <h1 class="title">Task Scheduler</h1>
+            <a href='Index.html' class='link'><h1 class="title">Task Scheduler</h1></a>
         </header>
-            <label for="startDay">Start Day:</label>
-            <select name="startDay" id=startDay>
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-            </select>
-            <label for="endDay">End Day:</label>
-            <select name="endDay" id="endDay">
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-            </select>
-            <label for="startTime">Start Time:</label>
-            <input name="startTime" id="startTime" type="time" value="08:00">
-            <label for="endTime">End Time:</label>
-            <input name="endTime" id="endTime" type="time" value="10:00">
-            <span>Duration: </span>
-            <input type="number" min="0" max="24" id="durationHour" value="0">
-            <span>hr</span>
-            <span>:</span>
-            <input type="number" min="0" max="59" id="durationMinute" value="30">
-            <span>min</span>
-            <input type="button" value="submit" id="submitButton">
+        <div class="schedule">
+            <div class="schedule-days">
+                <label for="startDay">Start Day:</label>
+                <select name="startDay" id=startDay>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+                <label for="endDay">End Day:</label>
+                <select name="endDay" id="endDay">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+            </div>
+                <div class="schedule-times">
+                    <label for="startTime">Start Time:</label>
+                    <input name="startTime" id="startTime" type="time" class="time" value="00:00">
+                    <label for="endTime">End Time:</label>
+                    <input name="endTime" id="endTime" type="time" class="time" value="00:00">
+                    <span>Duration: </span>
+                    <input type="number" min="0" max="24" id="durationHour" class="duration" value="0">
+                    <span>hr : </span>
+                    <input type="number" min="0" max="59" id="durationMinute" class="duration" value="0">
+                    <span>min</span>
+                </div>
+            <input type="button" value="Submit" id="submitButton">
+            
+        </div>
         <div id="schedule-table">
-
         </div>
     </body>
 </html>

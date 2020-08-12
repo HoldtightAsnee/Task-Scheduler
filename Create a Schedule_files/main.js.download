@@ -32,10 +32,7 @@ function createSchedule() {
     dayDuration = new Time(parseInt(durHour), parseInt(durMin));
     let startDay = document.getElementById("startDay").value;
     let endDay = document.getElementById("endDay").value;
-    if(dayDuration.hour > 24 || dayDuration.hour < 0 || dayDuration.minute > 59 || dayDuration.minute < 0) {
-        alert("Invalid duration.");
-        return;
-    }
+
     if(dayStartTime.compareTo(dayEndTime) >= 0) {
         alert("Start time cannot be greater than or equal to end time.");
         return false;
@@ -87,12 +84,14 @@ function loadTasks(row, day) {
         let data = document.createElement('td');
         data.className = "task-td";
         data.id = rowCount + "task" + colCount;
+        let descId = rowCount + "desc" + colCount;
         let desc = task.description;
         let startTime = "Start Time: " + task.startTime + "<br>";
         let endTime = "End Time: " + task.endTime + "<br>";
         let duration = "Duration: " + task.duration + "<br>";
-        let descInput = '<input name="task" class="description" placeholder="' + desc + '">';
-        data.innerHTML = descInput +"<p>" + startTime + endTime + duration + "</p>";
+        let descInput = '<input name="task" id="' + descId + '"placeholder="' + desc + '">';
+        let timesId = rowCount + "taskTimes" + colCount;
+        data.innerHTML = descInput +"<p id='" + timesId + "'>" + startTime + endTime + duration + "</p>";
         //Add before button
         let addTaskBeforeBtn = document.createElement("button");
         addTaskBeforeBtn.innerHTML = "Add";
@@ -143,7 +142,7 @@ function loadTasks(row, day) {
 */
 function fillTable() {
     if(!scheduleTable.hasChildNodes()) {
-        scheduleTable.innerHTML = "<thead class='title'><th>Schedule</th></thead>";   
+        scheduleTable.innerHTML = "<thead><th>Schedule</th></thead>";   
     }
     if(tableBody.hasChildNodes()) {
         while(tableBody.hasChildNodes()) {
