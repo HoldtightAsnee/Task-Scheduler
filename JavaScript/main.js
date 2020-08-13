@@ -91,7 +91,12 @@ function loadTasks(row, day) {
         let startTime = "Start Time: " + task.startTime + "<br>";
         let endTime = "End Time: " + task.endTime + "<br>";
         let duration = "Duration: " + task.duration + "<br>";
-        let descInput = '<input name="task" class="description" placeholder="' + desc + '">';
+        let descInput;
+        if(desc === "Please enter a description.") {
+            descInput = '<input name="task" class="description" data-role="description" placeholder="' + desc + '">';
+        } else {
+            descInput = '<input name="task" class="description" data-role="description" value="' + desc + '">';
+        }
         data.innerHTML = descInput +"<p>" + startTime + endTime + duration + "</p>";
         //Add before button
         let addTaskBeforeBtn = document.createElement("button");

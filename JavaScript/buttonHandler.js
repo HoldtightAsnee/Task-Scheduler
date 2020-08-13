@@ -103,9 +103,14 @@ function removeDay(button) {
     if(action === undefined) {
         let tableBodyNodes = tableBody.childNodes;
         tableBody.removeChild(row);
+        if(tableBodyNodes.length < 1) {
+            console.log(scheduleTable.childNodes);
+            while(scheduleTable.childNodes.length > 0) {
+                scheduleTable.removeChild(scheduleTable.lastChild);
+            }
+        }
         for(let i = index; i < tableBodyNodes.length; i++) {
             tableBodyNodes[i].id = "row" + rowCount;
-            console.log(tableBodyNodes[i].childNodes);
             tableBodyNodes[i].childNodes[0].childNodes[3].id = rowCount + "removeDay";
             updateTaskId(rowCount, tableBodyNodes[i].childNodes);
             rowCount++;

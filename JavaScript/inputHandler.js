@@ -37,7 +37,7 @@ function taskInputDelegator(event) {
         }else if(target.id === "durMin") {
             let duration = new Time(parseInt(document.getElementById("durHour").value), parseInt(target.value));
             updateEndTime(duration, tempTask);
-        } else if(target.id === dayIndex + "desc" + taskIndex) {
+        } else if(target.dataset.role === "description") {
             task.description = target.value;
         }
     }

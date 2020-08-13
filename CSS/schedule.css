@@ -3,10 +3,16 @@ body {
     padding-top: 0px;
 }
 
-.schedule {
+.schedule-days, .schedule-times {
     padding: 5px;
-    margin: 10px;
+    margin-left: 10px;
     display: block;
+    
+}
+
+.schedule {
+    border-bottom: 1px black solid;
+    padding-bottom: 5px;
 }
 
 .schedule label, .schedule span {
@@ -60,7 +66,7 @@ body {
     width: 5em;
     line-height: 1.5;
     border-radius: 0.25rem;
-    margin-left: 5px;
+    margin-left: 20px;
     
 }
 
