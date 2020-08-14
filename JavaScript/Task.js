@@ -54,7 +54,6 @@ class Task{
        time object to it and calculates the new duration.
     */
     increaseStartTime(time) {
-        let oldStartTime = this.startTime;
         try {
             let startTime = Time.add(this.startTime, time);
             if(typeof(startTime.hour) === 'number') {
@@ -146,6 +145,9 @@ class Task{
     */
     setStartTime(time) {
         try {
+            if(time.hour > 24 || time.hour < 0 || time.minute < 0 || time.minute > 59) {
+                throw new Error("Invalid start time.");
+            }
             if(time.compareTo(this.endTime) < 0) {
                 if(time.compareTo(new Time(0,0)) >= 0) {
                     this._startTime = time;
@@ -154,7 +156,7 @@ class Task{
                     throw new Error("Start time cannot be before 00:00.")
                 }
             } else {
-                throw new Error("Start time cannot exceed end time.");
+                throw new Error("Start time cannot exceed nor equal end time.");
             }
         } catch(err) {
             return err;
@@ -165,6 +167,9 @@ class Task{
     */
     setEndTime(time) {
         try {
+            if(time.hour > 24 || time.hour < 0 || time.minute < 0 || time.minute > 59) {
+                throw new Error("Invalid end time.");
+            }
             if(time.compareTo(this.startTime) > 0) {
                 if(time.compareTo(new Time(24,0)) <= 0) {
                     this._endTime = time;
@@ -173,7 +178,7 @@ class Task{
                     throw new Error("End time cannot exceed 24 hours.");
                 }
             } else {
-                throw new Error("End time cannot be before start time.");
+                throw new Error("End time cannot be before nor equal to start time.");
             }
         } catch(err) {
             return err;
@@ -185,8 +190,11 @@ class Task{
     */
     setDuration(time){
         try {
+            if(time.hour > 24 || time.hour < 0 || time.minute < 0 || time.minute > 59) {
+                throw new Error("Invalid duration.");
+            }
             if(time.compareTo(new Time(0,0)) === 0) {
-                throw new Error("Invalid time.");
+                throw new Error("Duration cannot be 00:00.");
             }
             let endTime = Time.add(this.startTime, time);
             if(endTime.compareTo(new Time(24,0)) < 0) {

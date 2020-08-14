@@ -33,7 +33,8 @@ function createSchedule() {
     let startDay = document.getElementById("startDay").value;
     let endDay = document.getElementById("endDay").value;
     if(dayDuration.hour > 24 || dayDuration.hour < 0 || dayDuration.minute > 59 || dayDuration.minute < 0 || dayDuration.compareTo(new Time(0,0)) === 0) {
-        alert("Invalid duration.");
+        alert("Duration cannot be 00:00.");
+        
         return;
     }
     if(dayStartTime.compareTo(dayEndTime) >= 0) {

@@ -168,7 +168,7 @@ function editTask(button) {
     endHour.value = task.endTime.hour;
     endHour.id = "endHour";
     endHour.max = 24;
-    endHour.min = task.startTime.hour;
+    endHour.min = tempTask.startTime.hour;
     endHour.className = "task-times";
     //end time min
     let endMin = document.createElement("input");

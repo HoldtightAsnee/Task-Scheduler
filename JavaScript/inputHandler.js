@@ -6,16 +6,6 @@ function taskInputDelegator(event) {
         if(target.type === "checkbox") {
             return;
         }
-        let cell;
-        if(target.parentNode.tagName === "TD") {
-            cell = target.parentNode;
-
-        } else {
-            cell = target.parentNode.parentNode.parentNode;
-        }
-        let dayIndex = parseInt(cell.id[0]);
-        let taskIndex = parseInt(cell.id[cell.id.length - 1]);
-        let task = schedule.get(dayIndex).taskList.get(taskIndex);
         if(target.value === "") {
             return;
         }
@@ -51,18 +41,25 @@ function updateDuration(time, task, isEndTime) {
     if(isEndTime) {
         action = task.setEndTime(time);
     } else {
-        action = task.setStartTime(time);
+         action = task.setStartTime(time);
     }
     if(action === undefined) {
         document.getElementById("durHour").value = task.duration.hour;
         document.getElementById("durMin").value = task.duration.minute;
     } else {
         alert(action);
+        if(isEndTime) {
+            document.getElementById('endHour').value = task.endTime.hour;
+            document.getElementById('endMin').value = task.endTime.minute;
+        } else {
+            document.getElementById("startHour").value = task.startTime.hour;
+            document.getElementById("startMin").value = task.startTime.minute;
+        }
     }
 }
 
 /*
-    This function updates the end time input values
+    This function updates the end time input valuesd
 */
 function updateEndTime(time, task) {
     let action = task.setDuration(time);
@@ -71,5 +68,7 @@ function updateEndTime(time, task) {
         document.getElementById("endMin").value = task.endTime.minute;
     } else {
         alert(action);
+        document.getElementById("durHour").value = task.duration.hour;
+        document.getElementById("durMin").value = task.duration.minute;
     }
 }
