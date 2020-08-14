@@ -9,6 +9,16 @@ function taskInputDelegator(event) {
         if(target.value === "") {
             return;
         }
+        let cell;
+        if(target.parentNode.tagName === "TD") {
+            cell = target.parentNode;
+
+        } else {
+            cell = target.parentNode.parentNode.parentNode;
+        }
+        let dayIndex = parseInt(cell.id[0]);
+        let taskIndex = parseInt(cell.id[cell.id.length - 1]);
+        let task = schedule.get(dayIndex).taskList.get(taskIndex);
         if(target.id === "startHour") {
             let startTime = new Time(parseInt(target.value), parseInt(document.getElementById("startMin").value));
             updateDuration(startTime, tempTask, false);
