@@ -32,7 +32,7 @@ function createSchedule() {
     dayDuration = new Time(parseInt(durHour), parseInt(durMin));
     let startDay = document.getElementById("startDay").value;
     let endDay = document.getElementById("endDay").value;
-    if(dayDuration.hour > 24 || dayDuration.hour < 0 || dayDuration.minute > 59 || dayDuration.minute < 0) {
+    if(dayDuration.hour > 24 || dayDuration.hour < 0 || dayDuration.minute > 59 || dayDuration.minute < 0 || dayDuration.compareTo(new Time(0,0)) === 0) {
         alert("Invalid duration.");
         return;
     }
