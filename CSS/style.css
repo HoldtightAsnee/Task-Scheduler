@@ -27,7 +27,7 @@ body {
 
 .grid {
     display: grid;
-    grid-template-rows: auto;
+    grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     margin: 0 auto;
@@ -48,7 +48,7 @@ body {
     margin: 2.5%;
 }
 
-.grid h2, .grid h4 {
+.grid h2, .grid h4{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: center;
     color: #002855;
@@ -58,9 +58,9 @@ body {
     padding-bottom: 5%;
 }
 
-.intro, .getting-started {
-    opacity: 1;
-    
+.help {
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
 .purpose {
@@ -100,6 +100,28 @@ body {
     height: 550px;
 }
 
+.heading, .guide ul {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #002855;
+    margin-left: 1.2rem;
+    margin: .5rem;
+}
+
+.guide ul {
+    margin-bottom: 1.5rem;
+}
+
+.guide li {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.link {
+    text-decoration-line: none;
+    color: #002855;
+}
+
+
 footer {
     position: relative;
     margin-top: 0px;
@@ -115,5 +137,10 @@ footer {
 
 footer p {
     color: #002855;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-left: 10px;
+}
+
+.footer {
+    position: static; 
 }

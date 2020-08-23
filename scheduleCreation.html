@@ -15,7 +15,10 @@
     </head>
     <body>
         <header>
-            <a href='index.html' class='link'><h1 class="title">Task Scheduler</h1></a>
+            <ul>
+                <li class="title"><a href='index.html' class='link'>Task Scheduler</a></li>
+                <li><a href="guide.html" class='link' target="_blank">Help</a></li>
+            </ul>
         </header>
         <div class="schedule">
             <div class="schedule-days">
@@ -45,7 +48,7 @@
                     <input name="startTime" id="startTime" type="time" class="time" value="00:00">
                     <label for="endTime">End Time:</label>
                     <input name="endTime" id="endTime" type="time" class="time" value="01:00">
-                    <span>Duration: </span>
+                    <span>Duration of Each Task: </span>
                     <input type="number" min="0" max="24" id="durationHour" class="duration" value="1">
                     <span>hr : </span>
                     <input type="number" min="0" max="59" id="durationMinute" class="duration" value="0">

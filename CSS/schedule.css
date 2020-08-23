@@ -138,4 +138,6 @@ table {
 
 .link {
     text-decoration-line: none;
+    margin-left: 0px;
+    color: #002855;
 }
