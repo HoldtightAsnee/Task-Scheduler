@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>guide</title>
+        <link rel="stylesheet" type="text/css" href="CSS/header.css">
+        <link rel="stylesheet" type="text/css" href="CSS/style.css">
+    </head>
+    <body>
+        <header>
+            <a href='index.html' class='link'><h1 class="title">Task Scheduler</h1></a>
+        </header>
+        <div class="guide">
+            <h2 class="heading">Creating a schedule</h2>
+            <ul>
+                <li>Select the 'Start Day'. This is the first day of the schedule.</li>
+                <li>Select the 'End Day'. This is the last day of the schedule. The days between the start day<br> 
+                    and the end day will be populated by the scheduler. To create a schedule for a single day,<br>
+                    set the end day to be the same as the start day.
+                </li>
+                <li>Set the 'Start Time'. This is the time you would like your schedule to begin.</li>
+                <li>Set the 'End Time'. This is the time you would like your schedule to end.</li>
+                <li>Set the 'Duration of Each Task'. This should be a time between the 'Start Time' and 'End Time'.<br>
+                    The scheduler will populate a suitable number of tasks with this duration.
+                </li>
+            </ul>
+            <h2 class="heading">Adding Days</h2>
+            <p class="content">
+                <ul>
+                    <li>Add Day Before: Adds the day before the current day if it is not already in the schedule.</li>
+                    <li>Add Day After: Adds the day after the current day if it is not already in the schedule.</li>
+                    <li>A day can only be added if it is not already in the schedule, and there are no more than 7 days in the 
+                        schedule.</li>
+                </ul>
+            </p>
+            <h2 class="heading">Removing Days</h2>
+            <ul>
+                <li>Remove Day: Removes the current day from the schedule. All tasks on this day will be deleted.</li>
+            </ul>
+            <h2 class="heading">Adding Tasks</h2>
+            <ul>
+                <li>Adding tasks creates a new task with the duration set to the value of 'Duration of Each Task' which was
+                    set when creating the schedule.
+                </li>
+            </ul>
+            <h2 class="heading">Editing Tasks</h2>
+            <ul>
+                <li>Changing the task description: The description can be changed without having to edit the task.</li>
+                <li>Changing the 'Start Time': This time cannot exceed nor equal the ending time of the task. <br>
+                    The scheduler adjusts the 'Duration' of the task after the 'Start Time' has been changed.
+                </li>
+                <li>Changing the 'End Time': This time cannot be before nor equal to the starting time of the task.<br>
+                    The scheduler adjusts the 'Duration' of the task after the 'End Time' has been changed.
+                </li>
+                <li>Changing the 'Duration': This time cannot be equal to '00:00'.<br>
+                    The scheduler adjusts the 'End Time' after the 'Duration' has been changed.
+                </li>
+                <li>To confirm the edit, press the 'Save' button.</li>
+            </ul>
+            <h2 class="heading">Removing Tasks</h2>
+            <ul>
+                <li>Removing a task deletes that it from the schedule but does not break the your scheule's flow.<br>
+                    The times of the tasks after are adjusted.
+                </li>
+            </ul>
+            <h2 class="heading">Saving Schedule</h2>
+            <ul>
+                <li>To save the schedule, save it as a pdf on your device.</li>
+            </ul>
+        </div>
+        <footer class="footer">
+            <p>Created by Tyron Wulff</p>
+        </footer>
+    </body>
+</html>
