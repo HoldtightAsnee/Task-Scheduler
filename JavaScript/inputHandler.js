@@ -17,7 +17,7 @@ function taskInputDelegator(event) {
             cell = target.parentNode.parentNode.parentNode;
         }
         let dayIndex = parseInt(cell.id[0]);
-        let taskIndex = parseInt(cell.id[cell.id.length - 1]);
+        let taskIndex = parseInt(cell.id.slice(5));
         let task = schedule.get(dayIndex).taskList.get(taskIndex);
         if(target.id === "startHour") {
             let startTime = new Time(parseInt(target.value), parseInt(document.getElementById("startMin").value));

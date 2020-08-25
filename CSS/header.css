@@ -20,11 +20,11 @@ header {
     color: #002855;
 }
 
-ul li {
+.nav li {
     display: inline;
 }
 
-ul {
+.nav {
     padding: 0;
     margin-left: 0;
     margin-top: 10px;
