@@ -179,4 +179,17 @@ class TaskList {
     get taskArr() {
         return this._taskArr;
     }
+
+    /* 
+        Replaces the instances taskArr with a 
+        copy of the specified taskList's taskArr
+    */
+    copyTaskArr(taskList) {
+        this._taskArr = [];
+        for(let i = 0; i < taskList.length(); i++) {
+            this._taskArr[i] = Task.copyTask(taskList.taskArr[i]);
+        }
+    }
 }
+
+

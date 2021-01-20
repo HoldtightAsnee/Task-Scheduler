@@ -83,4 +83,13 @@ class Day {
         let string = `Day: ${this._day}\n${this._taskList.toString()}`;
         return string;
     }
+
+    /*
+        Replaces the instance's taskList with 
+        another Day's taskList.
+    */
+   copyTaskList(day) {
+       this._taskList.copyTaskArr(day.taskList);
+   }
+
 }

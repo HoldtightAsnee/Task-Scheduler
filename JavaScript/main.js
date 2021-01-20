@@ -20,6 +20,8 @@ let dayDuration;
 let selectEdit;
 let tempTask;
 
+let copyId = -1;
+
 /*
     Creates the schedule in the schedule object
     using the inputs from the page.
@@ -58,20 +60,51 @@ function loadDay(rowCount, day) {
     let weekday = document.createElement('td');
     let dayTag = document.createElement('p');
     dayTag.innerHTML = day.day;
+    // add day before button
     let addDayBeforeBtn = document.createElement('button');
     addDayBeforeBtn.innerHTML = "Add Day Before";
     addDayBeforeBtn.dataset.role = "addDayBefore";
+    // add day after button
     let addDayAfterBtn = document.createElement("button");
     addDayAfterBtn.innerHTML = "Add Day After";
     addDayAfterBtn.dataset.role = "addDayAfter";
+    // remove day button
     let removeDayBtn = document.createElement("button");
     removeDayBtn.innerHTML = "Remove";
     removeDayBtn.dataset.role = "removeDay";
     removeDayBtn.id = rowCount + "removeDay";
+    // copy day button
+    let copyDayBtn = document.createElement("button");
+    copyDayBtn.innerHTML = "Copy";
+    copyDayBtn.dataset.role = "copyDay";
+    copyDayBtn.id = rowCount + "copyDay";
+    // paste day button
+    let pasteDayBtn = document.createElement("button");
+    pasteDayBtn.innerHTML = "Paste";
+    pasteDayBtn.dataset.role = "pasteDay";
+    pasteDayBtn.id = rowCount + "pasteDay";
+    pasteDayBtn.hidden = true;
+    // cancel copy day button
+    let cancelCopyBtn = document.createElement("button");
+    cancelCopyBtn.innerHTML = "Cancel";
+    cancelCopyBtn.dataset.role = "cancelCopy";
+    cancelCopyBtn.id = rowCount + "cancelCopy";
+    cancelCopyBtn.hidden = true;
+
+    // copy buttons visibility
+    if(copyId != -1) {
+        copyDayBtn.hidden = true;
+        pasteDayBtn.hidden = false;
+        cancelCopyBtn.hidden = false;
+    }
+
     weekday.appendChild(addDayBeforeBtn);
     weekday.appendChild(dayTag);
     weekday.appendChild(addDayAfterBtn);
     weekday.appendChild(removeDayBtn);
+    weekday.appendChild(copyDayBtn);
+    weekday.appendChild(pasteDayBtn);
+    weekday.appendChild(cancelCopyBtn);
     weekday.className = "day-td";
     row.appendChild(weekday);
     return row;
