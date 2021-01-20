@@ -235,5 +235,13 @@ class Task{
         Duration: ${this.duration}`;
         return taskString;
     }
+
+    /*
+        Creates a copy of a task
+        and returns it.
+    */
+    static copyTask(task) {
+        return new Task(task.description, task.startTime, task.endTime);
+    }
 }
 //module.exports = Task;

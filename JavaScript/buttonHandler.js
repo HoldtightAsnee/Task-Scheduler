@@ -18,6 +18,12 @@ function tableButtonDelegator(event) {
             cancelEdit(selectEdit);
         }
         editTask(target);
+    } else if(target.dataset.role === "copyDay") {
+        copyDay(target);
+    } else if(target.dataset.role === "pasteDay") {
+        pasteDay(target);
+    } else if(target.dataset.role === "cancelCopy") {
+        cancelCopy(target);
     } else if(target.dataset.role === "cancelEdit") {
         cancelEdit(target);
     } else if(target.dataset.role === "saveEdit") {
@@ -104,7 +110,6 @@ function removeDay(button) {
         let tableBodyNodes = tableBody.childNodes;
         tableBody.removeChild(row);
         if(tableBodyNodes.length < 1) {
-            console.log(scheduleTable.childNodes);
             while(scheduleTable.childNodes.length > 0) {
                 scheduleTable.removeChild(scheduleTable.lastChild);
             }
@@ -118,6 +123,83 @@ function removeDay(button) {
     } else {
         alert(action);
     }
+}
+
+/*
+    This function stores the id of the day to copy in the
+    'copyId' variable.
+*/
+function copyDay(button) {
+    let row = button.parentNode.parentNode;
+    let index = parseInt(row.id[row.id.length - 1]);
+    
+    // if(copyId == -1) {
+    //     copyId = index;
+    // }  else {
+    //     alert("A day has already been copied. To copy a different day, please cancel and copy again.");
+    // }
+
+    copyId = index;
+    
+    tableBody.childNodes.forEach(curr => {
+        let rowId = parseInt(curr.id[curr.id.length - 1]);
+        let td = curr.childNodes[0];
+        //hide copy button
+        td.childNodes[4].hidden = true;
+        //show cancel copy button
+        td.childNodes[6].hidden = false;
+        //show paste button for the other cells
+        if(rowId != copyId) {
+            td.childNodes[5].hidden = false;
+        }
+        
+    })
+
+}
+
+function pasteDay(button) {
+    if(copyId == -1) {
+        return;
+    }
+    let row = button.parentNode.parentNode;
+    let index = parseInt(row.id[row.id.length - 1]);
+    let dayToCopy = schedule.get(copyId);
+    let day = schedule.get(index);
+    
+
+    if(index == copyId) {
+        return;
+    }
+
+    day.copyTaskList(dayToCopy);
+    let newRow = loadDay(index, day);
+    loadTasks(newRow, day);
+    let oldRow = tableBody.childNodes[index];
+    tableBody.replaceChild(newRow, oldRow);
+    // hide paste button
+    let td = tableBody.childNodes[index].childNodes[0];
+    td.childNodes[5].hidden = true;
+
+
+}
+
+/*
+    This function resets the copyId to -1
+    and hides the paste and cancel buttons
+*/
+function cancelCopy(button) {
+    let row = button.parentNode.parentNode;
+    let index = parseInt(row.id[row.id.length - 1]);
+
+    copyId = -1;
+    tableBody.childNodes.forEach(curr => {
+        let td = curr.childNodes[0];
+        //hide paste and cancel buttons
+        td.childNodes[6].hidden = true;
+        td.childNodes[5].hidden = true;
+        //show copy button
+        td.childNodes[4].hidden = false;
+    });
 }
 
 /*
@@ -334,8 +416,6 @@ function addTaskAfter(button) {
     let row = button.parentNode.parentNode;
     let dayIndex = parseInt(cell.id[0]);
     let taskIndex = parseInt(cell.id.slice(5));
-    console.log(cell.id);
-    console.log(taskIndex);
     let day = schedule.get(dayIndex);
     let curr = day.taskList.get(taskIndex);
     let task = new Task("Please enter a description.", curr.endTime, dayDuration);
